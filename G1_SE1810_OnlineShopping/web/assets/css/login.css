@@ -1,0 +1,25 @@
+form {
+    max-width: 400px; /* Giới hạn chiều rộng của form */
+    margin: auto; /* Canh giữa form trong phần tử cha */
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%; /* Sét độ rộng của input là 100% để thu hẹp */
+    box-sizing: border-box; /* Kích thước tính cả padding và border */
+    padding: 10px; /* Thêm khoảng cách giữa nội dung và viền */
+    margin-bottom: 10px; /* Thêm khoảng cách giữa các input */
+    border-radius: 5px; /* Thêm viền tròn cho input */
+
+}
+button[type="submit"] {
+    width: 100%; /* Thiết lập chiều rộng bằng với input */
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 10px; /* Thêm khoảng cách giữa input và button */
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: block; /* Chuyển button sang dạng block để căn giữa */
+    margin: auto; /* Canh giữa button trong form */
+}
