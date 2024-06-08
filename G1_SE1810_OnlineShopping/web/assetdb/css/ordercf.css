@@ -1,0 +1,61 @@
+.cana {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* Định dạng khi rê chuột qua nút */
+a:hover {
+    background-color: #0056b3;
+}
+
+/* Định dạng nút Hủy */
+a.cancel {
+    background-color: #dc3545;
+    padding: 8px;
+    color: #ffffff;
+    border-radius: 10px
+
+}
+
+a.cancel:hover {
+    background-color: #bd2130;
+}
+
+/* Định dạng nút Xác nhận */
+a.confirm {
+    background-color: #00aced;
+    padding: 8px;
+    color: #ffffff;
+    border-radius: 10px
+
+}
+
+a.confirm:hover {
+    background-color: black;
+}
+.confirmation-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    color: black;
+}
+p.confirmation-modal {
+    color: black;
+}
+.confirmation-modal p {
+    margin-bottom: 10px;
+}

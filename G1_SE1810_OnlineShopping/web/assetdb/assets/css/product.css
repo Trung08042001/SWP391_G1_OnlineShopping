@@ -1,0 +1,181 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2022, 5:34:32 PM
+    Author     : USER
+*/
+
+
+
+.product-info-feature li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-info-feature .icon {
+    width: 40px; /* Điều chỉnh kích thước biểu tượng nếu cần */
+    margin-right: 10px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
+.product-info-feature .text {
+    flex: 1; /* Văn bản mở rộng để chiếm hết phần còn lại của hàng */
+}
+
+.product-info-feature strong {
+    font-weight: bold;
+}
+
+.product-info-feature h3 {
+    font-size: 18px; /* Điều chỉnh kích thước văn bản tiêu đề Hotline nếu cần */
+}
+
+/* Tạo khoảng cách giữa các phần tử trong danh sách */
+.product-info-feature li + li {
+    margin-top: 10px;
+}
+
+/* Định dạng cho biểu tượng */
+.product-info-feature .icon img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Màu văn bản chính và phụ */
+.product-info-feature .text strong {
+    color: #333; /* Màu văn bản chính */
+}
+
+.product-info-feature .text p {
+    color: #777; /* Màu văn bản phụ */
+}
+
+.cart{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+
+}
+.pbutton{
+    display: flex;
+    width: 180px;
+    border-radius: 17px;
+    padding: 5px 10px;
+    text-align: center;
+    justify-content: center;
+
+}
+.pbutton a{
+    font-size: 20px;
+    color: whitesmoke;
+    margin: 15px 0 0 0;
+
+}
+.add_cart{
+    margin-left: 20px;
+    width: 100px;
+    border-radius: 10px;
+    padding: 10px 0;
+    float: right;
+    text-align: center;
+}
+.add_cart a {
+    color: red;
+}
+.infor2{
+    padding: 10px;
+    background: rgb(218, 219, 218);
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.tech_infor .infor2 .specifi {
+    border-radius: 3px;
+    padding: 10px 10px;
+}
+.slideshow-container .title {
+    padding: 5px 0;
+    text-align: center;
+    width: 160px;
+    border-radius: 5px;
+    background: rgb(234, 184, 105);
+
+}
+
+.content_c {
+    margin-left: 30px;
+}
+.content_c ul li {
+    margin: 5px 0;
+}
+.box_price p {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: red;
+}
+.box_list {
+    text-align: center;
+    width: 115px;
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 10px 10px 10px 0px;
+
+
+}
+.box_link a{
+}
+.box_lists{
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+}
+.color_title p {
+    font-family: sans-serif,Arial, Helvetica;
+    font-size: 19px;
+    font-weight: 600;
+    margin:10px 0;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Nền và viền của box */
+.box_list {
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Liên kết */
+.box_link a {
+    text-decoration: none;
+    color: #333333;
+}
+
+/* Tiêu đề */
+.box_ram {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333333;
+}
+
+/* Mô tả */
+.box_description {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 10px;
+}
+
+/* Số lượng */
+.box_quantity {
+    font-size: 16px;
+    font-weight: bold;
+    color: #00aaff;
+}
