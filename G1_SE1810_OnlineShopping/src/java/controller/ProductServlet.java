@@ -66,7 +66,6 @@ public class ProductServlet extends HttpServlet {
             List<Category> listC = dc.getAllCategory();
             List<Category> listC2 = dc.getAllCategory2();
             List<Products> list2 = dp.getAllProducts();
-            List<Size> list1 = ds.getAllSize();
 
             Cookie[] arr = request.getCookies();
             String txt = "";
@@ -78,7 +77,7 @@ public class ProductServlet extends HttpServlet {
                 }
             }
 
-            Cart cart = new Cart(txt, list2, list1);
+            Cart cart = new Cart(txt, list2);
             List<Item> listItem = cart.getItems();
             int n = (listItem != null) ? listItem.size() : 0;
 

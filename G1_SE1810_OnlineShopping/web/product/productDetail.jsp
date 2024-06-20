@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-        <title>${detail.product.productName}</title>
+        <title>${detail.productName}</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -38,6 +38,68 @@
             function buy(pid) {
                 document.a.action = "/SWP391_OnlineShopping/buy?productID=" + pid;
             }
+            function updateFormAction() {
+                var pid = "${d.product.productID}";
+                var sizeId = document.getElementById('selectedSize').value;
+                var colorId = document.getElementById('selectedColor').value;
+
+// Check if sizeId is null or empty string, then set it to 1
+                sizeId = !sizeId ? 1 : sizeId;
+
+// Check if colorId is null or empty string, then set it to 1
+                colorId = !colorId ? 1 : colorId;
+                var url = "/SWP391_OnlineShopping/product/productdetail?productID=" + pid;
+
+                // Check if sizeId and colorId are not null or empty
+                if (sizeId) {
+                    url += "&sizeID=" + sizeId;
+                }
+                if (colorId) {
+                    url += "&colorID=" + colorId;
+                }
+
+                // If both sizeId and colorId are null, return 1
+
+                window.location.href = url;
+            }
+
+            function setSize(sizeId) {
+                document.getElementById('selectedSize').value = sizeId;
+                let sizeButtons = document.getElementsByClassName('size-button');
+                for (let button of sizeButtons) {
+                    button.classList.remove('selected');
+                }
+                document.getElementById('size-' + sizeId).classList.add('selected');
+                // Save selected size to localStorage
+                localStorage.setItem('selectedSize', sizeId);
+                updateFormAction();
+            }
+
+            function setColor(colorId) {
+                document.getElementById('selectedColor').value = colorId;
+                let colorButtons = document.getElementsByClassName('color-button');
+                for (let button of colorButtons) {
+                    button.classList.remove('selected');
+                }
+                document.getElementById('color-' + colorId).classList.add('selected');
+                // Save selected color to localStorage
+                localStorage.setItem('selectedColor', colorId);
+                updateFormAction();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                var selectedSize = localStorage.getItem('selectedSize');
+                if (selectedSize) {
+                    document.getElementById('selectedSize').value = selectedSize;
+                    document.getElementById('size-' + selectedSize).classList.add('selected');
+                }
+
+                var selectedColor = localStorage.getItem('selectedColor');
+                if (selectedColor) {
+                    document.getElementById('selectedColor').value = selectedColor;
+                    document.getElementById('color-' + selectedColor).classList.add('selected');
+                }
+            });
+
         </script>
         <script type="text/javascript">
             window.onpageshow = function (event) {
@@ -67,19 +129,21 @@
             <div class="nav-bar" >
                 <a style="color: black;"class="nav-link" href="/SWP391_OnlineShopping/home">
                     <img style="margin-bottom: 8px;margin-right:5px"src="/SWP391_OnlineShopping/assets/img/home.png" height=20px"width="20px" alt="alt"/>Trang chủ</a>/
-                <a href="/SWP391_OnlineShopping/collections/product?brandID=${detail.product.categoryID.brandID.brandID}&categoryID=${detail.product.categoryID.categoryID}"style="color: black; font-size: 17px; " class="nav-link">${detail.product.categoryID.brandID.brandName}-${detail.product.categoryID.cname}</a>
+                <a href="/SWP391_OnlineShopping/collections/product?brandID=${detail.brandID}&categoryID=${detail.categoryID}"style="color: black; font-size: 17px; " class="nav-link">${detail.brandID}-${detail.categoryID}</a>
             /
-            <a style="color: black; font-size: 17px; font-weight: bold;" class="nav-link">${detail.product.productName}</a>
+            <a style="color: black; font-size: 17px; font-weight: bold;" class="nav-link">${detail.productName}</a>
         </div>
-      
-        <form name="a"action="" method="post">
+
+        <form name="a" action="" method="post">
             <div class="row px-xl-5" style="padding-top: 50px">       
                 <div class="col-lg-4 pb-5">
                     <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner border">
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" src="/SWP391_OnlineShopping/assets/imageproduct/${detail.product.image}" alt="Image">
-                            </div>
+                        <div class="carousel-inner border" id="carousel-inner">
+                            <c:forEach var="image" items="${listImg}">
+                                <div class="carousel-item ${image == listImg[0] ? 'active' : ''}">
+                                    <img class="w-100 h-100" src="/SWP391_OnlineShopping/assets/imageproduct/${image}" alt="Image">
+                                </div>
+                            </c:forEach>
                         </div>
                         <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                             <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -91,57 +155,103 @@
                 </div>
 
                 <div class="col-lg-6 pb-5">
-                    <h3 class="font-weight-semi-bold">${detail.product.productName} - ${detail.product.productID}</h3>
+                    <h3 class="font-weight-semi-bold">${detail.productName} - ${detail.productID}</h3>
                     <div class="d-flex mb-3">
-                        <h3>Tình trạng: <h3 style="color: green">${detail.product.quantity} sản phẩm có sẵn (${totalFeedback} Reviews)</h3></h3>
+                        <h3>Tình trạng: <h3 style="color: green">${d.quantity} sản phẩm có sẵn</h3></h3>
 
                     </div>
-
                     <div class="d-flex align-items">
                         <div>
-                            <h2 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${detail.product.getPrice() * ((100.0 - detail.product.getDiscountSale()) / 100.0)}"/>₫</h2>
+                            <h2 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${detail.getPrice() * ((100.0 - detail.getDiscountSale()) / 100.0)}"/>₫</h2>
                         </div>
-                        <h2 class="text-muted ml-2"><del><fmt:formatNumber pattern="###,###" value="${detail.product.price}"/>₫</del></h2>
+                        <h2 class="text-muted ml-2"><del><fmt:formatNumber pattern="###,###" value="${detail.price}"/>₫</del></h2>
 
                     </div>
                     <div class="d-flex mb-3">
                         <h3>Tiết kiệm:<h2 style="color:green" ><fmt:formatNumber pattern="###,###" 
-                                          value="${detail.product.price - detail.product.getPrice() * ((100.0 - detail.product.getDiscountSale()) / 100.0)}"/>₫  giảm giá <fmt:formatNumber pattern="###,###" value="${detail.product.getDiscountSale()}"/>%</h2>
+                                          value="${detail.price - detail.getPrice() * ((100.0 - detail.getDiscountSale()) / 100.0)}"/>₫  giảm giá <fmt:formatNumber pattern="###,###" value="${detail.getDiscountSale()}"/>%</h2>
                         </h3>
 
                     </div>
-                    <div style="display: flex; align-items: center;">
-                        <h4 style="margin-right: 10px;">Chọn size:</h4>
-                        <c:choose>
-                            <c:when test="${empty requestScope.listSize}">
-                                <div class="message">Danh sách kích thước rỗng hoặc không tồn tại.</div>
-                            </c:when>
-                            <c:otherwise>
-                                <c:forEach items="${requestScope.listSize}" var="i">
-                                    <div class="box_list" id="product_${i.product.productID}_${i.size}" style="max-width: 200px; margin: 10px; text-align: center;">
-                                        <div class="box_link">
-                                            <c:choose>
-                                                <c:when test="${i.product.quantity == 0}">
-                                                    <div class="size out-of-stock" style="font-size: 16px;">
-                                                        <strong>${i.size}</strong>
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a href="productdetail?productID=${i.product.productID}">
-                                                        <div class="size" style="font-size: 16px;">
-                                                            <strong>${i.size}</strong>
-                                                        </div>
-                                                    </a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                    <div class="size-container">
+    <h4 class="size-label">Chọn size:</h4>
+    <input type="hidden" id="selectedSize" name="sizeID" value="">
+    <c:forEach items="${requestScope.size}" var="i">
+        <button type="button" id="size-${i.sizeId}" class="size-button" onclick="setSize('${i.sizeId}')">${i.size}</button>
+    </c:forEach>
+</div>
+<div class="color-container">
+    <h4 class="color-label">Chọn màu:</h4>
+    <input type="hidden" id="selectedColor" name="colorID" value="">
+    <c:forEach items="${requestScope.color}" var="c">
+        <button type="button" id="color-${c.colorId}" class="color-button" style="background-color: ${c.colorName};" onclick="setColor('${c.colorId}')"></button>
+    </c:forEach>
+</div>
+
 
                     <style>
+                        /* Phần chọn size */
+.size-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.size-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.size-button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.size-button.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.size-button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+/* Phần chọn màu */
+.color-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.color-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.color-button {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.color-button.selected {
+    border-color: #007bff;
+}
+
+.color-button:hover {
+    transform: scale(1.1);
+}
+
 
                         /* Phần chứa số lượng */
                         .quantity-container {
@@ -198,14 +308,15 @@
                         }
 
                     </style>
-                    <h4 class="mb-4">${detail.product.description}</h4>
+                    <h4>Mô Tả:</h4>
+                    <h5 class="mb-4">${detail.description}</h5>
 
 
                     <div class="d-flex align-items-center quantity-container">
                         <div class="text-dark font-weight-medium mb-0 mr-3 quantity-label">Số lượng:</div>
                         <div class="input-group quantity-input">
 
-                            <input type="number" name="num" class="form-control input-number bg-secondary text-center" value="1" min="1" max="10">
+                            <input type="number" name="num" class="form-control input-number bg-secondary text-center" value="1" min="1" max="100">
 
                         </div>
                     </div>
@@ -214,15 +325,15 @@
 
                     <div class="cart">
 
-                        <c:if test="${sessionScope.acc.roleID == 4 || sessionScope.acc == null && detail.product.quantity > 0}">  
+                        <c:if test="${sessionScope.acc.roleID == 4 || sessionScope.acc == null}">  
                             <div>
-                                <button onclick="buy('${detail.product.productID}')" style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px; border: none;">
+                                <button onclick="buy('${detail.productID}')" style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px; border: none;">
                                     Mua ngay
                                 </button>
 
                             </div><br/><br/><br/>
                             <div style="padding-left: 20px">
-                                <button onclick="add('${detail.product.productID}')" style="display: inline-block; color: white; background-color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                                <button onclick="add('${detail.productID}')" style="display: inline-block; color: white; background-color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
                                     Thêm vào giỏ hàng
                                 </button> 
                             </div>    
@@ -230,24 +341,25 @@
 
                         <c:if test="${sessionScope.acc.roleID == 2}">
                             <div>
-                                <a href="edit_product?pid=${detail.product.productID}" style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">
+                                <a href="edit_product?pid=${detail.productID}" style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">
                                     Edit Product
                                 </a>
                             </div>
                         </c:if>
 
-                        <c:if test="${detail.product.quantity == 0}">
-                            <div>
-                                <a style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">
-                                    Sản phẩm này hiện hết hàng
-                                </a>
-                            </div>
-                        </c:if>
+                        <%--<c:if test="${detail.product.quantity == 0}">--%>
+                        <!--                            <div>
+                                                        <a style="display: inline-block; color: white; background-color: red; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">
+                                                            Sản phẩm này hiện hết hàng
+                                                        </a>
+                                                    </div>-->
+                        <%--</c:if>--%>
                     </div>
 
 
 
                 </div>
+
                 <div class="col-lg-2 pb-5">
                     <ul class="product-info-feature" style="list-style-type: none; padding: 0;">
                         <li style="margin-bottom: 20px;">
@@ -336,7 +448,7 @@
                         <div class="row">
                             <!-- Phần hình ảnh -->
                             <div class="col-md-6">
-                                <img src="/SWP391_OnlineShopping/assets/categoryimage/${detail.product.categoryID.imageSize}" class="img-fluid">
+                                <img src="/SWP391_OnlineShopping/assets/categoryimage/" class="img-fluid">
                             </div>
 
                             <!-- Phần đánh giá -->
@@ -346,7 +458,7 @@
                                         <h4 style="text-align: center;padding-top: 200px">Chưa có đánh giá nào về sản phầm này.</h4>
                                     </c:when>
                                     <c:otherwise>
-                                        <h4 class="mb-4">${totalFeedback} đánh giá cho ${detail.product.productName} </h4>
+                                        <h4 class="mb-4">${totalFeedback} đánh giá cho ${detail.productName} </h4>
 
                                         <c:forEach items="${listF}" var="f">
                                             <div class="media mb-8">

@@ -79,7 +79,7 @@ public class FilterProduct extends HttpServlet {
                     }
                 }
             }
-            Cart cart = new Cart(txt, list, list1);
+            Cart cart = new Cart(txt, list);
             List<Item> listitem = cart.getItems();
             int n;
             if (listitem != null) {
@@ -98,14 +98,13 @@ public class FilterProduct extends HttpServlet {
             List<Category> listCC = dc.getAllCategoryByBrandID(brandID);
 
             String price = request.getParameter("price");
-            String size = request.getParameter("size");
             String sort = request.getParameter("sort");
             request.setAttribute("listB", listB);
             request.setAttribute("listC", listC);
             request.setAttribute("listC2", listC2);
             request.setAttribute("listCC", listCC);
 
-            List<Size> listP = ds.Productfilter(brandIDParam, CateIDparam, price, size, sort);
+            List<Products> listP = ds.Productfilter(brandIDParam, CateIDparam, price, sort);
             request.setAttribute("listP", listP);
             request.setAttribute("data", c);
 

@@ -108,17 +108,6 @@
                         </select>     
                     </div>
                     <div class="filter">
-                        <h4>Size</h4>
-                        <select name="size" style="padding: 10px">      
-                            <option value="0" selected>Tất Cả</option>
-                            <option value="48"> 48</option>
-                            <option value="49"> 49</option>
-                            <option value="50"> 50</option>
-                            <option value="51"> 51</option>
-                            <option value="52"> 52</option>
-                        </select> 
-                    </div>
-                    <div class="filter">
                         <h4>Sắp xếp theo </h4 >
                         <select name="sort" style="padding: 10px">  
                             <option value="0" selected>Tính năng</option>
@@ -205,13 +194,13 @@
                         <div class="col-lg-2 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <a href="/SWP391_OnlineShopping/product/productdetail?productID=${i.getProduct().getProductID()}">
-                                        <img class="img-fluid w-100" src="/SWP391_OnlineShopping/assets/imageproduct/${i.getProduct().getImage()}" alt=""></a>
+                                    <a href="/SWP391_OnlineShopping/product/productdetail?productID=${i.getProductID()}">
+                                        <img class="img-fluid w-100" src="/SWP391_OnlineShopping/assets/imageproduct/${i.getImage()}" alt=""></a>
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3"><a style="color: black"href="/SWP391_OnlineShopping/product/productdetail?productID=${i.getProduct().getProductID()}">${i.getProduct().getProductName()}</a></h6>
+                                    <h6 class="text-truncate mb-3"><a style="color: black"href="/SWP391_OnlineShopping/product/productdetail?productID=${i.getProductID()}">${i.getProductName()}</a></h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${i.getProduct().getPrice()}"/>₫</h6><h6 class="text-muted ml-2"><del><fmt:formatNumber pattern="###,###" value="${i.getProduct().getPrice() *1.15}"/>₫</del></h6>
+                                        <h6 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${product.getPrice() * ((100.0 - product.getDiscountSale()) / 100.0)}"/>₫</h6><h6 class="text-muted ml-2"><del><fmt:formatNumber pattern="###,###" value="${product.getPrice()}"/>₫</del></h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">

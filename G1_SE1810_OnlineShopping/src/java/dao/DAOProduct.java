@@ -14,6 +14,7 @@ import java.util.List;
 import models.Account;
 import models.Brand;
 import models.Category;
+import models.Item;
 import models.Products;
 import models.Size;
 
@@ -58,18 +59,14 @@ public class DAOProduct {
                 // Set the properties of the Products object
                 p.setProductID(rs.getInt("productID"));
                 p.setProductName(rs.getString("productName"));
+                p.setImage(rs.getString("image"));
                 p.setPrice(rs.getDouble("price"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
-                p.setQuantity(rs.getInt("quantity"));
-                p.setImage(rs.getString("image"));
                 p.setDescription(rs.getString("description"));
                 p.setCreate_at(rs.getDate("create_at"));
                 p.setUpdate_at(rs.getDate("update_at"));
                 p.setStatus(rs.getInt("status"));
-                Size s = ds.getSizeByID(rs.getInt("productID"));
-                Category c = dc.getBrandAndCategoryByID(rs.getInt("categoryID"));
-                p.setSize(s);
-                p.setCategoryID(c);
+                p.setCategoryID(rs.getInt("categoryID"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,18 +86,11 @@ public class DAOProduct {
             rs = ps.executeQuery();  // You should reuse the rs variable from the class
 
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt("productID"),
-                        rs.getString("productName"),
-                        rs.getDouble("price"),
-                        rs.getDouble("discountSale"),
-                        rs.getInt("quantity"),
-                        rs.getString("image"),
-                        rs.getString("description"),
-                        rs.getDate("create_at"),
-                        rs.getDate("update_at"),
-                        rs.getInt("status")
-                );
+                Products product = new Products();
+                product.setProductID(rs.getInt("productID"));
+                product.setImage(rs.getString("image"));
+                product.setPrice(rs.getDouble("price"));
+                product.setProductName(rs.getString("productName"));
                 productList.add(product);
             }
         } catch (Exception e) {
@@ -109,6 +99,27 @@ public class DAOProduct {
             closeResources(conn, ps, rs); // Assuming closeResources is a method to close resources
         }
         return productList;
+    }
+
+    public int getQuantityItem(int productID, int sizeId, int colorId) {
+        String sql = "SELECT p.quantity FROM product_detail p\n"
+                + "where p.productID = ? and p.colorID = ? and p.sizeID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ps.setInt(2, colorId);
+            ps.setInt(3, sizeId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("quantity");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeResources(conn, ps, rs);
+        }
+        return 0;
     }
 
     // in ra các loại category 
@@ -120,7 +131,6 @@ public class DAOProduct {
                 + "    p.productName, \n"
                 + "    p.price, \n"
                 + "    p.discountSale, \n"
-                + "    p.quantity, \n"
                 + "    p.image, \n"
                 + "    p.description, \n"
                 + "    p.create_at, \n"
@@ -151,9 +161,8 @@ public class DAOProduct {
                 Products p = new Products();
                 p.setProductID(rs.getInt("productID"));
                 p.setProductName(rs.getString("productName"));
-                p.setPrice(rs.getDouble("price"));
                 p.setImage(rs.getString("image"));
-                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
                 p.setDescription(rs.getString("description"));
                 list.add(p);
@@ -280,31 +289,27 @@ public class DAOProduct {
     // LiST sản phẩm theo cate và phân trang
     public List<Products> getProductByCategoryID(int cid, int page) {
         List<Products> list = new ArrayList<>();
-        String sql = "SELECT \n"
-                + "    p.productID, \n"
-                + "    p.productName, \n"
-                + "    p.price, \n"
-                + "    p.discountSale, \n"
-                + "    p.quantity, \n"
-                + "    p.image, \n"
-                + "    p.description, \n"
-                + "    p.create_at, \n"
-                + "    p.update_at, \n"
-                + "    p.status\n"
+        String sql = "SELECT p.productID, \n"
+                + "p.productName, \n"
+                + "p.price, \n"
+                + "p.image, \n"
+                + "p.discountSale, \n"
+                + "p.description, \n"
+                + "p.create_at, \n"
+                + "p.update_at, \n"
+                + "p.status\n"
                 + "FROM \n"
-                + "    onlineshopping.products p\n"
+                + "onlineshopping.products p\n"
                 + "JOIN (\n"
-                + "    SELECT \n"
-                + "        MAX(productID) as maxProductID,\n"
-                + "        productName\n"
-                + "    FROM \n"
-                + "        onlineshopping.products\n"
-                + "    WHERE \n"
-                + "        \n"
-                + "        categoryID = ? AND \n"
-                + "        quantity > 0 and status = 1\n"
-                + "    GROUP BY \n"
-                + "        productName\n"
+                + "SELECT \n"
+                + "MAX(productID) as maxProductID,\n"
+                + "productName\n"
+                + "FROM \n"
+                + "onlineshopping.products\n"
+                + "WHERE \n"
+                + "categoryID = ? and status = 1\n"
+                + "GROUP BY \n"
+                + "productName\n"
                 + ") maxProducts ON p.productID = maxProducts.maxProductID limit ?,8; ";
         try {
             conn = new DBContext().getConnection();
@@ -320,7 +325,6 @@ public class DAOProduct {
                 p.setPrice(rs.getDouble("price"));
                 p.setImage(rs.getString("image"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
-                p.setQuantity(rs.getInt("quantity"));
                 p.setDescription(rs.getString("description"));
                 list.add(p);
             }
@@ -385,7 +389,6 @@ public class DAOProduct {
                 p.setProductName(rs.getString("productName"));
                 p.setPrice(rs.getDouble("price"));
                 p.setDescription(rs.getString("description"));
-                p.setImage(rs.getString("image"));
                 list.add(p);
             }
             return list;
@@ -411,18 +414,7 @@ public class DAOProduct {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt("productID"),
-                        rs.getString("productName"),
-                        rs.getDouble("price"),
-                        rs.getDouble("discountSale"),
-                        rs.getInt("quantity"),
-                        rs.getString("image"),
-                        rs.getString("description"),
-                        rs.getDate("create_at"),
-                        rs.getDate("update_at"),
-                        rs.getInt("status")
-                );
+                Products product = new Products();
                 list.add(product);
             }
             return list;
@@ -445,7 +437,7 @@ public class DAOProduct {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             // Đảm bảo rằng tất cả các tài nguyên bị giải phóng
             closeResources(conn, ps, rs);
         }
@@ -468,8 +460,6 @@ public class DAOProduct {
                 p.setProductID(rs.getInt("productID"));
                 p.setProductName(rs.getString("productName"));
                 p.setPrice(rs.getDouble("price"));
-                p.setImage(rs.getString("image"));
-                p.setQuantity(rs.getInt("quantity"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
                 p.setDescription(rs.getString("description"));
                 p.setStatus(rs.getInt("status"));
@@ -477,7 +467,6 @@ public class DAOProduct {
                 DAOSize s = new DAOSize();
                 Size as = s.getSizeByID(rs.getInt("productID"));
 
-                p.setSize(as);
                 list.add(p);
             }
             return list;
@@ -530,43 +519,25 @@ public class DAOProduct {
         } finally {
             closeResources(conn, ps, rs);
         }
-
     }
 
     public void insertDataProduct(Products p) {
         try {
             conn = new DBContext().getConnection();
-
-            String sql = "INSERT INTO products (productName, price, discountSale, quantity, image, categoryID, create_at, update_at, status, description) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, current_date(), current_date(), ?, ?)";
+            String sql = "INSERT INTO products (productName, price, discountSale, image, categoryID, create_at, update_at, status, description) "
+                    + "VALUES (?, ?, ?, ?, ?, current_date(), current_date(), ?, ?)";
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, p.getProductName());
             ps.setDouble(2, p.getPrice());
             ps.setDouble(3, p.getDiscountSale());
-            ps.setInt(4, p.getQuantity());
-            ps.setString(5, p.getImage());
-            ps.setInt(6, p.getCategoryID().getCategoryID());
-            ps.setInt(7, p.getStatus());
-            ps.setString(8, p.getDescription());
+            ps.setString(4, p.getImage());
+            ps.setInt(5, p.getCategoryID());
+            ps.setInt(6, p.getStatus());
+            ps.setString(7, p.getDescription());
             ps.executeUpdate();
             System.out.println("Success");
-
             // Retrieve the generated productID
-            String sql1 = "SELECT productID FROM `products` ORDER BY productID DESC LIMIT 1";
-
-            ps = conn.prepareStatement(sql1);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                int productID = rs.getInt("productID");
-                String sql2 = "INSERT INTO size (productID, size) VALUES (?, ?)";
-                ps = conn.prepareStatement(sql2);
-                ps.setInt(1, productID); // Use the generated productID
-                ps.setString(2, p.getSize().getSize());
-                ps.executeUpdate();
-                System.out.println("Success");
-            }
-
         } catch (Exception e) {
             // Rollback transaction if there's an error
 
@@ -635,7 +606,7 @@ public class DAOProduct {
 
     public static void main(String[] args) {
         DAOProduct dao = new DAOProduct();
-        Products p =  dao.getProductByID(21);
+        Products p = dao.getProductByID(21);
         System.out.println(p);
 
     }
