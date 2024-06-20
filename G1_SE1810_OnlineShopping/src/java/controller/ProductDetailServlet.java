@@ -6,12 +6,13 @@ package controller;
 
 import dao.DAOBrand;
 import dao.DAOCategory;
+import dao.DAOColor;
 import dao.DAOFeedback;
 import dao.DAOProduct;
+import dao.DAOProductDetail;
 import dao.DAOSize;
 import models.Brand;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +25,8 @@ import models.Feedback;
 import models.Item;
 import models.Products;
 import models.Size;
-import jakarta.servlet.http.HttpSession;
+import models.Color;
+import models.ProductDetail;
 
 /**
  *
@@ -64,8 +66,10 @@ public class ProductDetailServlet extends HttpServlet {
             DAOProduct dao = new DAOProduct();
             DAOCategory dc = new DAOCategory();
             DAOSize ds = new DAOSize();
+            DAOColor cd = new DAOColor();
             DAOFeedback df = new DAOFeedback();
             DAOBrand db = new DAOBrand();
+            DAOProductDetail pd = new DAOProductDetail();
             // Retrieve lists
             List<Brand> listB = db.getAllBrand();
             List<Category> listC = dc.getAllCategory();
@@ -83,13 +87,16 @@ public class ProductDetailServlet extends HttpServlet {
             List<Products> list2 = dao.getAllProducts();
             List<Size> list1 = ds.getAllSize();
 
-            Cart cart = new Cart(txt, list2, list1);
+            Cart cart = new Cart(txt, list2);
             List<Item> listItem = cart.getItems();
             int n = (listItem != null) ? listItem.size() : 0;
             request.setAttribute("size", n);
             // Get productID from request
             int productID = Integer.parseInt(request.getParameter("productID"));
-            Size s = ds.getSizeByID(productID);
+            Products s = dao.getProductByID(productID);
+            int sizeID = Integer.parseInt(request.getParameter("sizeID"));
+            int colorID = Integer.parseInt(request.getParameter("colorID"));
+            ProductDetail d = pd.getDetail(productID, sizeID, colorID);
 
             // Get feedback information
             String indexPage = request.getParameter("page");
@@ -97,31 +104,41 @@ public class ProductDetailServlet extends HttpServlet {
                 indexPage = "1";
             }
             int index = Integer.parseInt(indexPage);
-            int count = df.getTotalFeedbackProduct(s.getProduct().getProductName());
+            int count = df.getTotalFeedbackProduct(s.getProductName());
             int endPage = count / 5;
             if (count % 5 != 0) {
                 endPage++;
             }
-            List<Feedback> listFeedback = df.getCommentsByProductLimit5(s.getProduct().getProductName(), index);
+            List<Feedback> listFeedback = df.getCommentsByProductLimit5(s.getProductName(), index);
             request.setAttribute("totalFeedback", count);
 
             // Get size information
-            List<Size> listSize = ds.getSizebyName(s.getProduct().getProductName());
-
+            List<Size> listSize = ds.getSizeByItemID(s.getProductID());
+            List<Size> size = ds.getSize();
+            List<Color> color = cd.getColor();
+            List<Color> listColor = ds.getColorByItemID(s.getProductID());
+            List<String> listImage = ds.getImagesByID(s.getProductID());
+            List<String> listImg = ds.getImages(s.getProductID(),colorID);
             // Get product information
-            List<Products> listP = dao.getProductByCategoryID(s.getProduct().getCategoryID().getCategoryID());
+            List<Products> listP = dao.getProductByCategoryID(s.getCategoryID());
 
             // Set attributes in request
             request.setAttribute("endP", endPage);
             request.setAttribute("indexPage", indexPage);
             request.setAttribute("listSize", listSize);
+            request.setAttribute("listColor", listColor);
             request.setAttribute("listF", listFeedback);
             request.setAttribute("listC", listC);
             request.setAttribute("detail", s);
+            request.setAttribute("listImage", listImage);
+            request.setAttribute("listImg", listImg);
+            request.setAttribute("d", d);
             request.setAttribute("listC2", listC2);
             request.setAttribute("listB", listB);
             request.setAttribute("listP", listP);
             request.setAttribute("tagSize", productID);
+            request.setAttribute("size", size);
+            request.setAttribute("color", color);
             // Forward to productDetail.jsp
             request.getRequestDispatcher("/view/product/productDetail.jsp").forward(request, response);
         } catch (Exception e) {

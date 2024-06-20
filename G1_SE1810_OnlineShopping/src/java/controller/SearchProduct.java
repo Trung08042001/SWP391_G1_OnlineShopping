@@ -100,7 +100,7 @@ public class SearchProduct extends HttpServlet {
                 }
             }
 
-            Cart cart = new Cart(txt, list2, list1);
+            Cart cart = new Cart(txt, list2);
             List<Item> listItem = cart.getItems();
             int n = (listItem != null) ? listItem.size() : 0;
 
