@@ -1,0 +1,146 @@
+.col-md-2{
+    background-color: rgb(196, 223, 223);
+}
+.col-md-10{
+    background-color: rgb(248, 246, 244);
+}
+label {
+    font-weight: bold;
+}
+.account-info-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    padding-top: 20px
+}
+
+.account-info-picture img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+
+}
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    position: fixed;
+}
+
+.sidebar-list {
+    margin-top: 50px;
+    padding-left: 0;
+}
+
+.sidebar-list-item {
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+.sidebar-list-item a {
+    display: block;
+    text-decoration: none;
+    color: #343a40;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar-list-item a:hover {
+    background-color: #dee2e6;
+}
+
+.sidebar-list-item a.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.sidebar-list-item a.active:hover {
+    background-color: #0062cc;
+}
+form {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+.card {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    padding: 20px;
+    padding-top: 50px;
+
+}
+#popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#popup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#popup-content {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#popup-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media (max-width: 600px) {
+    #popup-content {
+        width: 95%;
+    }
+}
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body {
+    width: 1200px; /* Đặt kích thước của card-body */
+    margin: auto; /* Căn giữa card-body trong form-container */
+}
+.account-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.account-info-picture img {
+    border-radius: 50%;
+}
+
+.account-info-name {
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.sidebar-list {
+    list-style-type: none;
+}
