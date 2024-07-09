@@ -19,12 +19,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Account;
-import models.Brand;
-import models.Cart;
-import models.Category;
-import models.Item;
-import models.Products;
-import models.Size;
 import java.util.List;
 import utils.SenMail;
 
@@ -72,36 +66,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            DAOSize ds = new DAOSize();
-            DAOProduct dp = new DAOProduct();
-            DAOBrand db = new DAOBrand();
-            DAOCategory dc = new DAOCategory();
-            List<Category> listC = dc.getAllCategory();
-            List<Category> listC2 = dc.getAllCategory2();
-            List<Brand> listB = db.getAllBrand();
-            List<Products> list2 = dp.getAllProducts();
-
-            Cookie[] arr = request.getCookies();
-            String txt = "";
-            if (arr != null) {
-                for (Cookie cookie : arr) {
-                    if (cookie.getName().equals("cart")) {
-                        txt += cookie.getValue();
-                    }
-                }
-            }
-            Cart cart = new Cart(txt, list2);
-            List<Item> listItem = cart.getItems();
-            int n;
-            if (listItem != null) {
-                n = listItem.size();
-            } else {
-                n = 0;
-            }
-            request.setAttribute("listC", listC);
-            request.setAttribute("listC2", listC2);
-            request.setAttribute("listB", listB);
-            request.setAttribute("size", n);
             request.getRequestDispatcher("/view/userAccess/login.jsp").forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
