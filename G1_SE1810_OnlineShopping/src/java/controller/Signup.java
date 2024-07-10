@@ -18,15 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Account;
-import models.Brand;
-import models.Cart;
-import models.Category;
-import models.Item;
-import models.Products;
-import models.Size;
 import jakarta.servlet.http.Cookie;
 import java.util.List;
-import models.Color;
 import utils.SenMail;
 
 /**
@@ -64,38 +57,6 @@ public class Signup extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAOSize ds = new DAOSize();
-            DAOColor dcl = new DAOColor();
-            DAOProduct dp = new DAOProduct();
-            DAOBrand db = new DAOBrand();
-
-            List<Products> list2 = dp.getAllProducts();
-
-            DAOCategory dc = new DAOCategory();
-            List<Category> listC = dc.getAllCategory();
-            List<Category> listC2 = dc.getAllCategory2();
-            List<Brand> listB = db.getAllBrand();
-
-            Cookie[] arr = request.getCookies();
-            String txt = "";
-
-            if (arr != null) {
-                for (Cookie cookie : arr) {
-                    if (cookie.getName().equals("cart")) {
-                        txt += cookie.getValue();
-                    }
-                }
-            }
-
-            Cart cart = new Cart(txt, list2);
-            List<Item> listItem = cart.getItems();
-            int n = (listItem != null) ? listItem.size() : 0;
-
-            request.setAttribute("size", n);
-            request.setAttribute("listC", listC);
-            request.setAttribute("listC2", listC2);
-            request.setAttribute("listB", listB);
-
             request.getRequestDispatcher("/view/userAccess/signup.jsp").forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
