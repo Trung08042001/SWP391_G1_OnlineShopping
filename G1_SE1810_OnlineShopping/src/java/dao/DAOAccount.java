@@ -125,73 +125,7 @@ public class DAOAccount {
         return null;
     }
 
-    public Account checkEmail(String email) {
-        try {
-            String sql = "select * from account where email = ?";
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                Account a = new Account(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getBoolean(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getString(10),
-                        rs.getDate(11),
-                        rs.getDate(12)
-                );
-                return a;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Đảm bảo rằng tất cả các tài nguyên bị giải phóng
-            closeResources(conn, ps, rs);
-        }
-        return null;
-    }
-
-    public Account checkPhoneNumber(String phone_number) {
-        try {
-            String sql = "select * from account where phone_number = ?";
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, phone_number);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                Account a = new Account(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getBoolean(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getString(10),
-                        rs.getDate(11),
-                        rs.getDate(12)
-                );
-                return a;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Đảm bảo rằng tất cả các tài nguyên bị giải phóng
-            closeResources(conn, ps, rs);
-        }
-        return null;
-    }
+   
 
     public void Signup(String fullname, String gender, String address, String email, String password, String phone_number, int roleID, int status, String profile_picture) {
         String sql = "INSERT INTO `onlineshopping`.`account` (`fullname`, `gender`, `address`, `email`, `password`, `phone_number`, `roleID`, `status`, `profile_picture`, `create_at`, `update_at`) "
@@ -291,26 +225,7 @@ public class DAOAccount {
         return null;
     }
 
-    public void UpdateProfile(String fullname, String address, String phone_number, boolean gender, int id) {
-        String sql = "UPDATE `onlineshopping`.`account` SET `fullname` = ?, `address` = ?, `gender` = ? ,`phone_number` = ?, `update_at` = ? WHERE `id` = ?;";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            LocalDate curDate = LocalDate.now();
-            ps.setString(1, fullname);
-            ps.setString(2, address);
-            ps.setBoolean(3, gender);
-            ps.setString(4, phone_number);
-            ps.setDate(5, java.sql.Date.valueOf(curDate));
-            ps.setInt(6, id);
-            ps.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            // Đảm bảo rằng tất cả các tài nguyên bị giải phóng
-            closeResources(conn, ps, rs);
-        }
-    }
+   
 
     public void changePassword(int userId, String newPassword) {
         String sql = "UPDATE account SET password = ? WHERE id = ?";
