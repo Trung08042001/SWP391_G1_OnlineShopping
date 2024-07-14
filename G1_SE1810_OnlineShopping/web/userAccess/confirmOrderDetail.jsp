@@ -1,7 +1,7 @@
 <%-- 
     Document   : confirmOrder
-    Created on : Oct 4, 2023, 11:28:23 AM
-    Author     : Nitro
+    Created on : Jul 4, 2024, 11:28:23 AM
+    Author     : KhanhNX
 --%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
