@@ -94,10 +94,10 @@ public class ProductDetailServlet extends HttpServlet {
             // Get productID from request
             int productID = Integer.parseInt(request.getParameter("productID"));
             Products s = dao.getProductByID(productID);
-            
             int sizeID = Integer.parseInt(request.getParameter("sizeID"));
             int colorID = Integer.parseInt(request.getParameter("colorID"));
             ProductDetail d = pd.getDetail(productID, sizeID, colorID);
+
             // Get feedback information
             String indexPage = request.getParameter("page");
             if (indexPage == null) {
@@ -115,7 +115,7 @@ public class ProductDetailServlet extends HttpServlet {
             // Get size information
             List<Size> listSize = ds.getSizeByItemID(s.getProductID());
             List<Size> size = ds.getSize();
-            List<Color> color = cd.getColor(s.getProductID());
+            List<Color> color = cd.getColor();
             List<Color> listColor = ds.getColorByItemID(s.getProductID());
             List<String> listImage = ds.getImagesByID(s.getProductID());
             List<String> listImg = ds.getImages(s.getProductID(),colorID);
@@ -132,13 +132,12 @@ public class ProductDetailServlet extends HttpServlet {
             request.setAttribute("detail", s);
             request.setAttribute("listImage", listImage);
             request.setAttribute("listImg", listImg);
-            request.setAttribute("pID", productID);
             request.setAttribute("d", d);
             request.setAttribute("listC2", listC2);
             request.setAttribute("listB", listB);
             request.setAttribute("listP", listP);
             request.setAttribute("tagSize", productID);
-            request.setAttribute("qsize", size);
+            request.setAttribute("size", size);
             request.setAttribute("color", color);
             // Forward to productDetail.jsp
             request.getRequestDispatcher("/view/product/productDetail.jsp").forward(request, response);

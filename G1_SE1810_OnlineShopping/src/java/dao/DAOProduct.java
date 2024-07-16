@@ -90,7 +90,6 @@ public class DAOProduct {
                 product.setProductID(rs.getInt("productID"));
                 product.setImage(rs.getString("image"));
                 product.setPrice(rs.getDouble("price"));
-                product.setDiscountSale(rs.getDouble("discountSale"));
                 product.setProductName(rs.getString("productName"));
                 productList.add(product);
             }
@@ -121,27 +120,6 @@ public class DAOProduct {
             closeResources(conn, ps, rs);
         }
         return 0;
-    }
-
-    public boolean getAvailableItem(int productID, int sizeId, int colorId) {
-        String sql = "SELECT p.colorID FROM product_detail p\n"
-                + "where p.productID = ? and p.colorID = ? and p.sizeID = ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, productID);
-            ps.setInt(2, colorId);
-            ps.setInt(3, sizeId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            closeResources(conn, ps, rs);
-        }
-        return false;
     }
 
     // in ra các loại category 
@@ -311,39 +289,28 @@ public class DAOProduct {
     // LiST sản phẩm theo cate và phân trang
     public List<Products> getProductByCategoryID(int cid, int page) {
         List<Products> list = new ArrayList<>();
-        String sql = "SELECT p.productID, "
-                + "p.productName, "
-                + "p.price, "
-                + "p.image, "
-                + "p.discountSale, "
-                + "p.description, "
-                + "p.create_at, "
-                + "p.update_at, "
-                + "p.status, "
-                + "MIN(c.colorID) AS 'color', "
-                + "MIN(s.sizeID) AS 'size' "
-                + "FROM onlineshopping.products p "
-                + "JOIN ( "
-                + "    SELECT MAX(productID) AS maxProductID, "
-                + "           productName "
-                + "    FROM onlineshopping.products "
-                + "    WHERE categoryID = ? AND status = 1 "
-                + "    GROUP BY productName "
-                + ") maxProducts ON p.productID = maxProducts.maxProductID "
-                + "INNER JOIN product_detail d ON d.productID = p.productID "
-                + "INNER JOIN color c ON c.colorID = d.colorID "
-                + "INNER JOIN size s ON s.sizeID = d.sizeID "
-                + "GROUP BY p.productID, "
-                + "         p.productName, "
-                + "         p.price, "
-                + "         p.image, "
-                + "         p.discountSale, "
-                + "         p.description, "
-                + "         p.create_at, "
-                + "         p.update_at, "
-                + "         p.status "
-                + "LIMIT ?, 8;";
-
+        String sql = "SELECT p.productID, \n"
+                + "p.productName, \n"
+                + "p.price, \n"
+                + "p.image, \n"
+                + "p.discountSale, \n"
+                + "p.description, \n"
+                + "p.create_at, \n"
+                + "p.update_at, \n"
+                + "p.status\n"
+                + "FROM \n"
+                + "onlineshopping.products p\n"
+                + "JOIN (\n"
+                + "SELECT \n"
+                + "MAX(productID) as maxProductID,\n"
+                + "productName\n"
+                + "FROM \n"
+                + "onlineshopping.products\n"
+                + "WHERE \n"
+                + "categoryID = ? and status = 1\n"
+                + "GROUP BY \n"
+                + "productName\n"
+                + ") maxProducts ON p.productID = maxProducts.maxProductID limit ?,8; ";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -359,8 +326,6 @@ public class DAOProduct {
                 p.setImage(rs.getString("image"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
                 p.setDescription(rs.getString("description"));
-                p.setColor(rs.getInt("color"));
-                p.setSize(rs.getInt("size"));
                 list.add(p);
             }
             return list;
