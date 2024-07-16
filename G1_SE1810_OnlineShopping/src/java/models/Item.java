@@ -12,18 +12,19 @@ public class Item {
 
     private Products product;
     private Size size;
-
+    private Color color;
+    private String image;
     private int quantity;
-    private double price;
 
     public Item() {
     }
 
-    public Item(Products product, Size size, int quantity, double price) {
+    public Item(Products product, Size size,Color color, int quantity, String image) {
         this.product = product;
-        this.size = size;
+        this.color = color;
         this.quantity = quantity;
-        this.price = price;
+        this.image = image;
+        this.size = size;
     }
 
     public Products getProduct() {
@@ -42,6 +43,14 @@ public class Item {
         this.size = size;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -50,12 +59,12 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public String getImage() {
+        return image;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setImage(String image) {
+        this.image = image;
     }
 
    
