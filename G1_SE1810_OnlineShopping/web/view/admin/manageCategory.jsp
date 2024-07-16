@@ -185,7 +185,7 @@
                                     <label>Hình ảnh</label>
                                     <input name="image" type="file" class="form-control" required>
                                 </div>
-                                <div class="form-group" style="">
+                                <div class="form-group" style="padding-right:600px">
                                     <label style="float: left" >Brand</label>
                                     <select name="bid" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${listB}" var="b">
@@ -193,7 +193,10 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                
+                                <div class="form-group">
+                                    <label>Hình ảnh Size</label>
+                                    <input name="imageS" type="file" class="form-control" required>
+                                </div>
                                 <div style=" color: #a94442; padding: 10px; border-radius: 5px;">
                                     <strong>${requestScope.text}</strong>
                                 </div>

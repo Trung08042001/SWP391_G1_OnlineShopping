@@ -126,10 +126,8 @@
                                                             <th style="font-size: 17px">No</th>
                                                             <th style="font-size: 17px">Image</th>
                                                             <th style="font-size: 17px">Product</th>
-                                                            <th style="font-size: 17px">Size</th>
                                                             <th style="font-size: 17px">Quantity</th>
                                                             <th style="font-size: 17px">Price</th>
-                                                            <th style="font-size: 17px">UnitStock</th>
                                                             <th style="font-size: 17px"> Status</th>
                                                         </tr>
                                                     </thead>
@@ -141,11 +139,9 @@
                                                                         <a href="#"><img class="rounded-circle" src="/SWP391_OnlineShopping/assets/imageproduct/${o.product.image}" alt="" ></a>
                                                                     </div></td>
                                                                 <td style="font-size: 20px"> <span >${o.product.productName}</span> </td>
-                                                                <td style="font-size: 20px"> <span >${o.product.size.size}</span> </td>
 
                                                                 <td style="font-size: 20px"><span >${o.oquantity}</span></td>
                                                                 <td style="font-size: 20px"><fmt:formatNumber pattern="###,###" value="${o.oprice}"/></td>
-                                                                <td style="font-size: 20px"> <span class="product">${o.product.quantity}</span> </td>
                                                                 <td style="font-size: 17px;color:green">${data.statusName}</td>
                                                             </tr>
                                                         </c:forEach>

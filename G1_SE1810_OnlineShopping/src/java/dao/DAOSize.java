@@ -134,6 +134,42 @@ public class DAOSize {
         return list;
     }
     
+    public String getSizeNameByID(int productID) {
+        String sql = "select sizeName from size where sizeID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeResources(conn, ps, rs);
+        }
+        return "";
+    }
+    
+    public String getColorNameByID(int productID) {
+        String sql = "select colorName from color where colorID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeResources(conn, ps, rs);
+        }
+        return "";
+    }
+    
     public List<String> getImages(int productID,int colorID) {
         List<String> list = new ArrayList<>();
         String sql = "SELECT p.imamge FROM product_image p \n"

@@ -126,10 +126,8 @@
                                                 <table class="table ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="serial">Thương hiệu</th>
                                                             <th class="avatar">Ảnh </th>
                                                             <th>Tên Sản phẩm</th>
-                                                            <th>Size</th>
                                                             <th>Số lượng</th>
                                                             <th>Giá</th>
                                                             <th>Ngày đặt</th>
@@ -148,13 +146,11 @@
                                                             </c:if>
                                                             <!-- Hiển thị thông tin sản phẩm -->
                                                             <tr class=" pb-0">
-                                                                <td>#${o.product.categoryID.brandID.brandName}</td>
                                                                 <td><div class="round-img">
                                                                         <a href="#"><img class="rounded-circle" src="/SWP391_OnlineShopping/assets/imageproduct/${o.product.image}" alt="" ></a>
                                                                     </div></td>
 
-                                                                <td> <span class="product"><a href="/SWP391_OnlineShopping/product/productdetail?productID=${o.product.productID}">${o.product.productName}-${o.product.size.size}</a></span> </td>
-                                                                <td> <span class="product">${o.product.size.size}</span> </td>
+                                                                <td> <span class="product"><a href="/SWP391_OnlineShopping/product/productdetail?productID=${o.product.productID}">${o.product.productName}</a></span> </td>
 
                                                                 <td><span >${o.oquantity}</span></td>
                                                                 <td><fmt:formatNumber pattern="###,###" value="${o.oprice}"/>đ</td>

@@ -122,17 +122,6 @@
                         </select>     
                     </div>
                     <div class="filter">
-                        <h4>Size</h4>
-                        <select name="size" style="padding: 10px">      
-                            <option value="0" selected>Tất Cả</option>
-                            <option value="48"> 48</option>
-                            <option value="49"> 49</option>
-                            <option value="50"> 50</option>
-                            <option value="51"> 51</option>
-                            <option value="52"> 52</option>
-                        </select> 
-                    </div>
-                    <div class="filter">
                         <h4>Sắp xếp theo </h4>
                         <select name="sort" style="padding: 10px">  
                             <option value="0" selected>Tính năng</option>
