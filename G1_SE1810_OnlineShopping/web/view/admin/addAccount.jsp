@@ -126,6 +126,7 @@
                                     <option value="1" ${Detailacc.roleID == '1' ? 'selected' : ''}>Admin</option>
                                     <option value="2" ${Detailacc.roleID == '2' ? 'selected' : ''}>Manager</option>
                                     <option value="3" ${Detailacc.roleID == '3' ? 'selected' : ''}>Sale</option>
+                                    <option value="5" ${Detailacc.roleID == '5' ? 'selected' : ''}>Shipper</option>
                                 </select>
                             </div>
 

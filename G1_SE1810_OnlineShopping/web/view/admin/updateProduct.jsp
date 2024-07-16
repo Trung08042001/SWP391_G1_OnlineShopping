@@ -91,7 +91,7 @@
                     <h1 style="text-align: center;padding-top: 30px" ><img src="/SWP391_OnlineShopping/assets/img/edit.png" height="50px" width="50px" alt="alt"/>Chỉnh sửa sản phẩm
                     </h1>
 
-                    <a href="/SWP391_OnlineShopping/administrator/Product?cid=${product.categoryID.categoryID}" data-toggle="modal">
+                    <a href="/SWP391_OnlineShopping/administrator/Product?cid=${product.categoryID}" data-toggle="modal">
                         <button style="background-color: black;color: white"class="app-content-headerButton">Trở lại</button>
                     </a>
                     <form action="UpdateProduct" method="post">
@@ -109,10 +109,6 @@
                                             <input value="${product.productName}" name="productName" type="text" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label>Size</label>
-                                            <input name="size" class="form-control" value="${product.size.size}" required>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Ngày thêm</label>
                                             <input class="form-control" value="${product.create_at}" readonly required>
                                         </div>
@@ -122,11 +118,11 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label style="float: left" >Danh mục: ${product.categoryID.cname}</label>
+                                            <label style="float: left" >Danh mục: ${product.categoryID}</label>
                                             <select name="categoryID" class="form-select">
                                                 <c:forEach items="${listC}" var="c">
                                                     <c:choose>
-                                                        <c:when test="${c.categoryID == product.categoryID.categoryID}">
+                                                        <c:when test="${c.categoryID == product.categoryID}">
                                                             <option value="${c.categoryID}" selected>${c.cname}</option>
                                                         </c:when>
                                                         <c:otherwise>
@@ -149,10 +145,6 @@
                                         <div class="form-group">
                                             <label>Giá giảm(%)</label>
                                             <input name="discountSale"pattern = "[0-9.]+" class="form-control" value="${product.discountSale}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Số Lượng</label>
-                                            <input name="quantity" pattern = "[0-9.]+" class="form-control" value="${product.quantity}" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Giới thiệu</label>

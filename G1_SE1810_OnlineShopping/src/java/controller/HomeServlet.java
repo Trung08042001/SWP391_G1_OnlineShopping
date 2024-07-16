@@ -47,10 +47,8 @@ public class HomeServlet extends HttpServlet {
             DAOBrand db = new DAOBrand();
             List<Category> listC = dc.getAllCategory();
             List<Category> listC2 = dc.getAllCategory2();
-            DAOSize ds = new DAOSize();
             DAOProduct dp = new DAOProduct();
             List<Products> list2 = dp.getAllProducts();
-            List<Size> list1 = ds.getAllSize();
 
             Cookie[] arr = request.getCookies();
             String txt = "";
@@ -61,7 +59,7 @@ public class HomeServlet extends HttpServlet {
                     }
                 }
             }
-            Cart cart = new Cart(txt, list2, list1);
+            Cart cart = new Cart(txt, list2);
             List<Item> listItem = cart.getItems();
             int n;
             if (listItem != null) {

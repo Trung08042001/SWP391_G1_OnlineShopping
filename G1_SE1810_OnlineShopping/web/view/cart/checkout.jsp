@@ -131,9 +131,9 @@
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" name="payment" id="paypal" value="Thanh toán khi nhận hàng" required="">
-                                            <label class="custom-control-label" for="paypal">Thanh toán khi nhận hàng </label>
+                                        <div>
+                                            <input type="radio" name="payment" value="COD">Thanh toán khi nhận hàng
+                                            <input style="margin-left: 20px" type="radio" name="payment" value="E-Wallet">Thanh toán qua VNPay
                                         </div>
                                     </div>
                                 </div>

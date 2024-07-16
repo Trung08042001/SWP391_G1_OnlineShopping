@@ -126,7 +126,6 @@
                                                             <th style="font-size: 20px">No</th>
                                                             <th style="font-size: 20px">Image</th>
                                                             <th style="font-size: 20px">Product</th>
-                                                            <th style="font-size: 20px">Size</th>
                                                             <th style="font-size: 20px">Quantity</th>
                                                             <th style="font-size: 20px">Price</th>
                                                             <th style="font-size: 20px">Pick Up Date</th>
@@ -142,7 +141,6 @@
                                                                         <a href="#"><img class="rounded-circle" src="/SWP391_OnlineShopping/assets/imageproduct/${o.product.image}" alt="" ></a>
                                                                     </div></td>
                                                                 <td style="font-size: 17px"> <span >${o.product.productName}</span> </td>
-                                                                <td style="font-size: 17px"> <span >${o.product.size.size}</span> </td>
                                                                 <td style="font-size: 17px"><span >${o.oquantity}</span></td>
                                                                 <td style="font-size: 17px"><fmt:formatNumber pattern="###,###" value="${o.product.price}"/></td>
                                                                 <td style="font-size: 17px"><span >${o.order.pickUpDate}</span></td>

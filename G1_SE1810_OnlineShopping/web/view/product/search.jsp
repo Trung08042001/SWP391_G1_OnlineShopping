@@ -79,12 +79,12 @@
                             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                                 <div class="card product-item border-0 mb-4">
                                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <a href="product/productdetail?productID=${p.productID}"><img class="img-fluid w-100" src="/SWP391_OnlineShopping/assets/imageproduct/${p.image}" alt=""></a>
+                                        <a href="product/productdetail?productID=${p.productID}&sizeID=${p.getSize()}&colorID=${p.getColor()}"><img class="img-fluid w-100" src="/SWP391_OnlineShopping/assets/imageproduct/${p.getImage()}" alt=""></a>
                                     </div>
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3"><a style="color: black"href="product/productdetail?productID=${p.productID}">${p.productName}</a></h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${p.price}"/>₫</h6><h6 class="text-muted ml-2"><del><fmt:formatNumber pattern="            ###,###" value="${p.price *1.15}"/>₫</del></h6>
+                                            <h6 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${p.price}"/>₫</h6><h6 class="text-muted ml-2"><del><fmt:formatNumber pattern="###,###" value="${p.price *1.15}"/>₫</del></h6>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">

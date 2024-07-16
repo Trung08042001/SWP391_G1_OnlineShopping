@@ -138,7 +138,7 @@
                                                             <th style="font-size:16px;">pick Up Date</th>
                                                             <th style="font-size:16px;">Address</th>
                                                             <th style="font-size:16px;">Total Money</th>
-
+                                                            <th style="font-size:16px;">Payment Method</th>    
                                                             <th style="font-size:16px;">Status Order</th>
                                                             <th style="font-size:16px;"style="padding-right: 30px">Activity</th>
                                                         </tr>
@@ -155,7 +155,7 @@
                                                                 <td style="font-size:14px;"><span >${o.pickUpDate}</span></td>
                                                                 <td style="font-size:14px;"><span >${o.account.address}</span></td>
                                                                 <td style="font-size:14px;"><fmt:formatNumber pattern="###,###" value="${o.totalMoney}"/></td>
-
+                                                                <td style="font-size:14px;"><span >${o.paymentMethod}</span></td>
                                                                 <td style="font-size:14px;">
                                                                     <span>
                                                                         ${o.statusName}</span>

@@ -117,7 +117,6 @@
                                     <th style="text-align: center" >productName</th>
                                     <th style="text-align: center">price</th>
                                     <th style="text-align: center">discountSale</th>
-                                    <th style="text-align: center">size</th>
                                     <th style="text-align: center">image</th>
                                     <!--                                                                        <th>create_at</th>
                                                                                                             <th>update_at</th>-->
@@ -137,7 +136,6 @@
                                             <h6 style="color: red"><fmt:formatNumber pattern="#,###,###" value="${p.getDiscountSale()}"/>%</h6>
 
                                         </td>
-                                        <td style=" text-align: center">${p.getSize().getSize()}</td>
                                         <td style="font-size: 17px">
                                             <div class="round-img">
                                                 <img class="rounded-circle" style="width: 150px; height: 200px" src="/SWP391_OnlineShopping/assets/imageproduct/${p.getImage()}" alt="" >

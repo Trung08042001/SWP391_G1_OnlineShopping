@@ -33,8 +33,8 @@ import java.util.Random;
 
     public boolean sendEmail(Account u, String code) {
         boolean test = false;
-        final String fromEmail = "huysendmailjava@gmail.com";
-        final String password = "jqjzzgkyvwjexskx";  // jqjzzgkyvwjexskx   juyhcikkiuyaclsb
+        final String fromEmail = "donnylee2003@gmail.com";
+        final String password = "zfpu qdwq hksi pjbe";  // jqjzzgkyvwjexskx   juyhcikkiuyaclsb
         String toEmmail = u.getEmail();
         Properties pr = new Properties();
         pr.setProperty("mail.smtp.host", "smtp.gmail.com");

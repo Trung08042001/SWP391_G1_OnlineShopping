@@ -155,7 +155,24 @@
                                 <div class="modal-footer">
                                     <input type="submit" class="btn btn-success" value="Edit Image">
                                 </div>
-                            </form>                      
+                            </form>
+
+                            <form action="UpdateImage" method="get">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input value="${category.categoryID}" name="cid" type="hidden" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Ảnh Size</label>
+                                        <img  style="width: 500px; height: 300px; border-radius: 10px" src="/SWP391_OnlineShopping/assets/categoryimage/${category.getImageSize()}" alt="">
+                                        <input name="imageSize" type="file">
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-success" value="Edit Image Size">
+                                </div>
+                            </form>
                         </div>
 
                     </div>

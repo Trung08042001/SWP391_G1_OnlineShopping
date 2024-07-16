@@ -171,7 +171,14 @@
                         </h3>
 
                     </div>
-                    <c:if test="${requestScope.color.size() != 0}">
+                    <div class="size-container">
+    <h4 class="size-label">Chọn size:</h4>
+    <input type="hidden" id="selectedSize" name="sizeID" value="">
+    <c:forEach items="${requestScope.qsize}" var="i">
+        <button type="button" id="size-${i.sizeId}" class="size-button" onclick="setSize('${i.sizeId}')">${i.size}</button>
+    </c:forEach>
+</div>
+            <c:if test="${requestScope.color.size() != 0}">            
 <div class="color-container">
     <h4 class="color-label">Chọn màu:</h4>
     <input type="hidden" id="selectedColor" name="colorID" value="">
@@ -180,14 +187,6 @@
     </c:forEach>
 </div>
 </c:if>
-<div class="size-container">
-    <h4 class="size-label">Chọn size:</h4>
-    <input type="hidden" id="selectedSize" name="sizeID" value="">
-    <c:forEach items="${requestScope.qsize}" var="i">
-        <button type="button" id="size-${i.sizeId}" class="size-button" onclick="setSize('${i.sizeId}')">${i.size}</button>
-    </c:forEach>
-</div>
-
 
                     <style>
                         /* Phần chọn size */

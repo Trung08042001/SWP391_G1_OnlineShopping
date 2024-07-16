@@ -49,7 +49,7 @@ public class DAOProduct {
         DAOSize ds = new DAOSize();
         DAOCategory dc = new DAOCategory();
         try {
-            String sql = "SELECT * FROM Products WHERE productID = ?";
+            String sql = "SELECT * FROM products WHERE productID = ?";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
@@ -420,6 +420,7 @@ public class DAOProduct {
 
             while (rs.next()) {
                 Products p = new Products();
+                p.setImage(rs.getString("image"));
                 p.setProductID(rs.getInt("productID"));
                 p.setProductName(rs.getString("productName"));
                 p.setPrice(rs.getDouble("price"));
@@ -439,7 +440,6 @@ public class DAOProduct {
     public List<Products> searchByNameforAdmin(int cid, String key) {
         List<Products> list = new ArrayList<>();
         String sql = "Select * from products p \n"
-                + "join size s on p.productID = s.productID\n"
                 + "where categoryID = ? and p.productName like ?";
         try {
             conn = new DBContext().getConnection();
@@ -449,8 +449,15 @@ public class DAOProduct {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Products product = new Products();
-                list.add(product);
+                Products p = new Products();
+                p.setProductID(rs.getInt("productID"));
+                p.setProductName(rs.getString("productName"));
+                p.setImage(rs.getString("image"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDiscountSale(rs.getDouble("discountSale"));
+                p.setDescription(rs.getString("description"));
+                p.setStatus(rs.getInt("status"));
+                list.add(p);
             }
             return list;
         } catch (Exception e) {
@@ -482,7 +489,6 @@ public class DAOProduct {
     public List<Products> getProductByCateID(int cid) {
         List<Products> list = new ArrayList<>();
         String sql = "Select * from products p \n"
-                + "join size s on p.productID = s.productID\n"
                 + "where categoryID = ?";
         try {
             conn = new DBContext().getConnection();
@@ -494,14 +500,11 @@ public class DAOProduct {
                 Products p = new Products();
                 p.setProductID(rs.getInt("productID"));
                 p.setProductName(rs.getString("productName"));
+                p.setImage(rs.getString("image"));
                 p.setPrice(rs.getDouble("price"));
                 p.setDiscountSale(rs.getDouble("discountSale"));
                 p.setDescription(rs.getString("description"));
                 p.setStatus(rs.getInt("status"));
-
-                DAOSize s = new DAOSize();
-                Size as = s.getSizeByID(rs.getInt("productID"));
-
                 list.add(p);
             }
             return list;
@@ -514,10 +517,10 @@ public class DAOProduct {
         return null;
     }
 
-    public void updateDataProduct(String pname, String price, String discountSale, String quantity, String description, String cid, String status, String size, String pid) {
-        String sql = "Update products p JOIN size s ON p.productID = s.productID\n"
-                + "set p.productName=?, p.price=?, p.discountSale=?, p.quantity=?, p.description=?, \n"
-                + "p.categoryID=?, p.create_at = current_date(), p.update_at = current_date(), p.status = ?, s.size = ? \n"
+    public void updateDataProduct(String pname, String price, String discountSale, String description, String cid, String status, String pid) {
+        String sql = "Update products p\n"
+                + "set p.productName=?, p.price=?, p.discountSale=?, p.description=?, \n"
+                + "p.categoryID=?, p.create_at = current_date(), p.update_at = current_date(), p.status = ? \n"
                 + "where p.productID =?";
         try {
             conn = new DBContext().getConnection();
@@ -525,12 +528,10 @@ public class DAOProduct {
             ps.setString(1, pname);
             ps.setString(2, price);
             ps.setString(3, discountSale);
-            ps.setString(4, quantity);
-            ps.setString(5, description);
-            ps.setString(6, cid);
-            ps.setString(7, status);
-            ps.setString(8, size);
-            ps.setString(9, pid);
+            ps.setString(4, description);
+            ps.setString(5, cid);
+            ps.setString(6, status);
+            ps.setString(7, pid);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
