@@ -18,7 +18,7 @@ import models.Category;
 
 /**
  *
- * @author trand
+ * @author admin
  */
 @WebServlet(name = "AddShipper", urlPatterns = {"/administrator/AddShipper"})
 public class AddShipper extends HttpServlet {

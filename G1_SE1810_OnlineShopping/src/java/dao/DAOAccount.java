@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Nitro
+ * @author admin
  */
 public class DAOAccount {
 

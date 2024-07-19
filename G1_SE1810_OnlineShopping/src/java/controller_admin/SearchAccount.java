@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
 public class SearchAccount extends HttpServlet {
 

@@ -19,7 +19,7 @@ import models.Shipper;
 
 /**
  *
- * @author Nitro
+ * @author admin
  */
 public class DAOShipper {
 
