@@ -4,14 +4,14 @@
  */
 package controller_admin;
 
-import dao.DAOBrand;
+import dao.DAOAccount;
 import dao.DAOCategory;
-import dao.DAOProduct;
-import models.Brand;
+import models.Account;
 import models.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +21,8 @@ import java.util.List;
  *
  * @author admin
  */
-public class ManageBrand extends HttpServlet {
+@WebServlet(name = "ManageAccount", urlPatterns = {"/administrator/AdminAccount"})
+public class ManageAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,17 +37,16 @@ public class ManageBrand extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            DAOProduct dao = new DAOProduct();
-            DAOCategory dao2 = new DAOCategory();
-            List<Category> list2 = dao2.getAllCategorys();
-            request.setAttribute("listC", list2);
+            DAOCategory dao = new DAOCategory();
+            List<Category> listC = dao.getAllCategorys();
+            request.setAttribute("listC", listC);
 
-            DAOBrand daob = new DAOBrand();
-            List<Brand> listB = daob.getAllBrand();
-            request.setAttribute("listB", listB);
-            request.getRequestDispatcher("/view/admin/manageBrand.jsp").forward(request, response);
+            DAOAccount d = new DAOAccount();
+            List<Account> list = d.getAllAccount();
+            request.setAttribute("listA", list);
+            request.getRequestDispatcher("/view/admin/manageAccount.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/common/error404.jsp").forward(request, response);
         }
     }
 

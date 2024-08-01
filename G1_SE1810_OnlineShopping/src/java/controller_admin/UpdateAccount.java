@@ -4,24 +4,25 @@
  */
 package controller_admin;
 
-import dao.DAOBrand;
+import dao.DAOAccount;
 import dao.DAOCategory;
-import dao.DAOProduct;
-import models.Brand;
+import models.Account;
 import models.Category;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import utils.PasswordHashing;
 
 /**
  *
  * @author admin
  */
-public class ManageBrand extends HttpServlet {
+@WebServlet(name = "EditAcc", urlPatterns = {"/administrator/edit"})
+public class UpdateAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,20 +35,7 @@ public class ManageBrand extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try {
-            DAOProduct dao = new DAOProduct();
-            DAOCategory dao2 = new DAOCategory();
-            List<Category> list2 = dao2.getAllCategorys();
-            request.setAttribute("listC", list2);
-
-            DAOBrand daob = new DAOBrand();
-            List<Brand> listB = daob.getAllBrand();
-            request.setAttribute("listB", listB);
-            request.getRequestDispatcher("/view/admin/manageBrand.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,7 +50,20 @@ public class ManageBrand extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            DAOCategory dc = new DAOCategory();
+            List<Category> listC = dc.getAllCategorys();
+            request.setAttribute("listC", listC);
+
+            String id = request.getParameter("id");
+            int pid = Integer.parseInt(id);
+            DAOAccount dao = new DAOAccount();
+            Account a = dao.getAccountById(pid);
+            request.setAttribute("Detailacc", a);
+            request.getRequestDispatcher("/view/admin/updateAccount.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -76,7 +77,28 @@ public class ManageBrand extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String id = request.getParameter("id");
+            String fullname = request.getParameter("fullname");
+            String password = request.getParameter("password");
+            password = PasswordHashing.toSHA1(password);
+            String phone_number = request.getParameter("phone_number");
+            String address = request.getParameter("address");
+            Boolean gender = "1".equals(request.getParameter("gender"));
+            String roleID = request.getParameter("roleID");
+            String status = request.getParameter("status");
+            String email = request.getParameter("email");
+
+            DAOAccount dao = new DAOAccount();
+
+            dao.UpdateDataAccount(fullname, gender, address, email, password,
+                    phone_number, roleID, status, id);
+            request.getSession().setAttribute("successMessage", "Updated successfully.");
+            response.sendRedirect("/SWP391_OnlineShopping/administrator/AdminAccount");
+        } catch (Exception e) {
+            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+        }
+//        
     }
 
     /**

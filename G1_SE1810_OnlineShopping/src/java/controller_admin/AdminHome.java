@@ -4,10 +4,9 @@
  */
 package controller_admin;
 
-import dao.DAOBrand;
+import dao.DAOAccount;
 import dao.DAOCategory;
 import dao.DAOProduct;
-import models.Brand;
 import models.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +20,7 @@ import java.util.List;
  *
  * @author admin
  */
-public class ManageBrand extends HttpServlet {
+public class AdminHome extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +34,17 @@ public class ManageBrand extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            DAOProduct dao = new DAOProduct();
-            DAOCategory dao2 = new DAOCategory();
-            List<Category> list2 = dao2.getAllCategorys();
-            request.setAttribute("listC", list2);
-
-            DAOBrand daob = new DAOBrand();
-            List<Brand> listB = daob.getAllBrand();
-            request.setAttribute("listB", listB);
-            request.getRequestDispatcher("/view/admin/manageBrand.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AdminHomeServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AdminHomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -62,7 +60,14 @@ public class ManageBrand extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            DAOCategory dao2 = new DAOCategory();
+            List<Category> list2 = dao2.getAllCategorys();
+            request.setAttribute("listC", list2);
+            request.getRequestDispatcher("/view/admin/manageHome.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+        }
     }
 
     /**

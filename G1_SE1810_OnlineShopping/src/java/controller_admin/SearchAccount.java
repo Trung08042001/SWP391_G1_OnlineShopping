@@ -4,10 +4,9 @@
  */
 package controller_admin;
 
-import dao.DAOBrand;
+import dao.DAOAccount;
 import dao.DAOCategory;
-import dao.DAOProduct;
-import models.Brand;
+import models.Account;
 import models.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,9 +18,9 @@ import java.util.List;
 
 /**
  *
- * @author admin
+ * @author Admin
  */
-public class ManageBrand extends HttpServlet {
+public class SearchAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +35,36 @@ public class ManageBrand extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            DAOProduct dao = new DAOProduct();
+            String txtSearch = request.getParameter("txt");
+            DAOAccount dao = new DAOAccount();
             DAOCategory dao2 = new DAOCategory();
             List<Category> list2 = dao2.getAllCategorys();
             request.setAttribute("listC", list2);
-
-            DAOBrand daob = new DAOBrand();
-            List<Brand> listB = daob.getAllBrand();
-            request.setAttribute("listB", listB);
-            request.getRequestDispatcher("/view/admin/manageBrand.jsp").forward(request, response);
+/*            String indexPage = request.getParameter("page");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int page = Integer.parseInt(indexPage);
+            int count = dao.getTotalAccountSearch(txtSearch); // 21
+            int endPage = count / 6;
+            if (count % 6 != 0) {
+                endPage++;
+            }
+            */
+            List<Account> list = dao.searchAccount(txtSearch);
+//            request.setAttribute("indexPage", indexPage);
+//            request.setAttribute("endP", endPage);
+            request.setAttribute("listA", list);
+            request.setAttribute("listC", list2);
+            request.setAttribute("txtInput", txtSearch);
+            request.getRequestDispatcher("/view/admin/manageAccount.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/common/error404.jsp").forward(request, response);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
