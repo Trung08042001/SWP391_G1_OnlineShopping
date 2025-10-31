@@ -4,23 +4,19 @@
  */
 package controller_admin;
 
-import dao.DAOAccount;
-import dao.DAOCategory;
-import models.Account;
-import models.Category;
+import dao.DAOBrand;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class SearchAccount extends HttpServlet {
+public class DeleteBrand extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,36 +31,17 @@ public class SearchAccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String txtSearch = request.getParameter("txt");
-            DAOAccount dao = new DAOAccount();
-            DAOCategory dao2 = new DAOCategory();
-            List<Category> list2 = dao2.getAllCategorys();
-            request.setAttribute("listC", list2);
-/*            String indexPage = request.getParameter("page");
-            if (indexPage == null) {
-                indexPage = "1";
-            }
-            int page = Integer.parseInt(indexPage);
-            int count = dao.getTotalAccountSearch(txtSearch); // 21
-            int endPage = count / 6;
-            if (count % 6 != 0) {
-                endPage++;
-            }
-            */
-            List<Account> list = dao.searchAccount(txtSearch);
-//            request.setAttribute("indexPage", indexPage);
-//            request.setAttribute("endP", endPage);
-            request.setAttribute("listA", list);
-            request.setAttribute("listC", list2);
-            request.setAttribute("txtInput", txtSearch);
-            request.getRequestDispatcher("/view/admin/manageAccount.jsp").forward(request, response);
+            int brandid = Integer.parseInt(request.getParameter("bid"));
+            DAOBrand db = new DAOBrand();
+            db.DeleteBrandByID(brandid);
+            request.getSession().setAttribute("successMessage", "Delete Brand successfully.");
+            response.sendRedirect("/SWP391_OnlineShopping/administrator/Brand");
         } catch (Exception e) {
-            request.getRequestDispatcher("/view/common/error404.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/common/error.jsp").forward(request, response);
         }
-
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
