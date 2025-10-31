@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
 public class SearchAccount extends HttpServlet {
 
@@ -40,7 +40,7 @@ public class SearchAccount extends HttpServlet {
             DAOCategory dao2 = new DAOCategory();
             List<Category> list2 = dao2.getAllCategorys();
             request.setAttribute("listC", list2);
-/*            String indexPage = request.getParameter("page");
+            String indexPage = request.getParameter("page");
             if (indexPage == null) {
                 indexPage = "1";
             }
@@ -50,10 +50,9 @@ public class SearchAccount extends HttpServlet {
             if (count % 6 != 0) {
                 endPage++;
             }
-            */
-            List<Account> list = dao.searchAccount(txtSearch);
-//            request.setAttribute("indexPage", indexPage);
-//            request.setAttribute("endP", endPage);
+            List<Account> list = dao.searchAccount(txtSearch, page);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("endP", endPage);
             request.setAttribute("listA", list);
             request.setAttribute("listC", list2);
             request.setAttribute("txtInput", txtSearch);

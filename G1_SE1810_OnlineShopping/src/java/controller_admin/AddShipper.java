@@ -18,7 +18,7 @@ import models.Category;
 
 /**
  *
- * @author trand
+ * @author admin
  */
 @WebServlet(name = "AddShipper", urlPatterns = {"/administrator/AddShipper"})
 public class AddShipper extends HttpServlet {
@@ -96,8 +96,7 @@ public class AddShipper extends HttpServlet {
             String identity = request.getParameter("identity");
             DAOAccount dao = new DAOAccount();
             dao.AddAccount(fullname, gender, address, email, password, phone_number, roleID, status);
-            String id = dao.getLatestAccountID();
-            dao.AddShipper(vehicle, plateNumber, identity, "1",id);
+            dao.AddShipper(vehicle, plateNumber, identity, "1");
             request.getSession().setAttribute("successMessage", "You have successfully added your account.");
             response.sendRedirect("/SWP391_OnlineShopping/administrator/AdminAccount");
         } catch (Exception e) {

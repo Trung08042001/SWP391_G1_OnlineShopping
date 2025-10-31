@@ -95,14 +95,12 @@
                 </div>
 
                 <div class="col-md-10">
-                    <h1 style="text-align: center;padding-top: 30px" ><img src="/SWP391_OnlineShopping/assets/img/edit.png" height="50px" width="50px" alt="alt"/>Thêm Tài Khoản
+                    <h1 style="text-align: center;padding-top: 30px" ><img src="/SWP391_OnlineShopping/assets/img/edit.png" height="50px" width="50px" alt="alt"/>Thêm Tài Khoản Shipper
                     </h1>
                     <a href="AdminAccount" data-toggle="modal">
                         <button style="background-color: black;color: white;" class="app-content-headerButton"><img src="/SWP391_OnlineShopping/assets/img/back.png" alt="alt" width="20px" height="20px"/>Trở lại</button>
                     </a>
-                    <a style="margin-left: 1100px" href="AddShipper" data-toggle="modal">
-                        <button style="background-color: black;color: white;" class="app-content-headerButton"><img src="/SWP391_OnlineShopping/assets/img/back.png" alt="alt" width="20px" height="20px"/>Tạo Tài Khoản Shipper</button>
-                    </a>
+                    
                     <form action="addAccount" method="post">
 
                         <div class="modal-body">					
@@ -118,18 +116,11 @@
                                 <label>Mật khẩu</label>
                                 <input  name="password" type="password" class="form-control"  required>
                             </div>
-                            <!--                            <div class="form-group">
-                                                            <label>Nhập Lại Mật Khẩu</label>
-                                                            <input  name="password" type="password" class="form-control"  required>
-                                                        </div>-->
 
                             <div class="form-group" style="padding-right:  750px">
                                 <label>Quyền</label>
                                 <select name="roleID" class="form-select" aria-label="Default select example">
-                                    <option value="1" ${Detailacc.roleID == '1' ? 'selected' : ''}>Admin</option>
-                                    <option value="2" ${Detailacc.roleID == '2' ? 'selected' : ''}>Manager</option>
-                                    <option value="3" ${Detailacc.roleID == '3' ? 'selected' : ''}>Sale</option>
-                                    <option value="5" ${Detailacc.roleID == '5' ? 'selected' : ''}>Shipper</option>
+                                    <option value="5">Shipper</option>
                                 </select>
                             </div>
 
@@ -142,6 +133,18 @@
                             <div class="form-group">
                                 <label>Số điện thoại</label>
                                 <input  name="phone_number" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại phương tiện</label>
+                                <input  name="verhicle" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Biển số xe</label>
+                                <input  name="plateNumber" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>CCCD</label>
+                                <input  name="identity" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Giới Tính</label>

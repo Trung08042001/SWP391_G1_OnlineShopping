@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Nitro
+ * @author admin
  */
 public class DAOAccount {
 
@@ -455,7 +455,7 @@ public class DAOAccount {
         String sql = "UPDATE onlineshopping.account \n"
                 + "SET roleID=?, status=?, update_at=? \n"
                 + "WHERE id=?; ";
-        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try ( Connection conn = new DBContext().getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, roleID);
             ps.setString(2, status);
             ps.setTimestamp(3, new Timestamp(System.currentTimeMillis())); // Set current timestamp
@@ -473,7 +473,7 @@ public class DAOAccount {
     public void UpdatePictureAccount(String picture, String id) {
         String sql = "UPDATE onlineshopping.account \n"
                 + "SET profile_picture = ? WHERE id=?; ";
-        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try ( Connection conn = new DBContext().getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, picture);
             ps.setString(2, id);
             ps.executeUpdate();
@@ -528,20 +528,22 @@ public class DAOAccount {
         return 0;
     }
 
-    public List<Account> searchAccount(String txtSearch) {
+    public List<Account> searchAccount(String txtSearch, int page) {
         List<Account> list = new ArrayList<>();
         String sql = "SELECT *\n"
                 + "From Account as a join account_role as al on a.RoleID = al.RoleID\n"
                 + "WHERE email LIKE ?\n"
                 + "   OR fullname LIKE ?\n"
                 + "   OR phone_number LIKE ?\n"
-                + "ORDER BY email, address\n";
+                + "ORDER BY email, address\n"
+                + "LIMIT ?,6;";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + txtSearch + "%");
             ps.setString(2, "%" + txtSearch + "%");
             ps.setString(3, "%" + txtSearch + "%");
+            ps.setInt(4, (page - 1) * 6);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Account a = new Account();
