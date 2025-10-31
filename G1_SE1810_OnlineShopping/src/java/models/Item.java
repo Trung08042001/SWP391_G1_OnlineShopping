@@ -6,11 +6,10 @@ package models;
 
 /**
  *
- * @author admin
+ * @author khanh cu be
  */
 public class Item {
-
-    private Products product;
+     private Products product;
     private Size size;
     private Color color;
     private String image;
@@ -67,5 +66,4 @@ public class Item {
         this.image = image;
     }
 
-   
 }

@@ -4,22 +4,20 @@
  */
 package models;
 
-import java.sql.Date;
-
 /**
  *
- * @author admin
+ * @author khanh cu be
  */
 public class Shipper {
-
     private int shipperID;
     private Account account;
     private String vehicleType;
     private String vehiclePlateNumber;
     private String cccd;
     private Boolean isAvailable;
-
-    public Shipper() {
+    
+    public Shipper(){
+        
     }
 
     public Shipper(int shipperID, Account account, String vehicleType, String vehiclePlateNumber, String cccd, Boolean isAvailable) {
@@ -83,6 +81,6 @@ public class Shipper {
     public String toString() {
         return "Shipper{" + "shipperID=" + shipperID + ", account=" + account + ", vehicleType=" + vehicleType + ", vehiclePlateNumber=" + vehiclePlateNumber + ", cccd=" + cccd + ", isAvailable=" + isAvailable + '}';
     }
-
-
+    
+   
 }

@@ -6,7 +6,7 @@ package models;
 
 /**
  *
- * @author admin
+ * @author Nitro
  */
 public class Account_Status {
     private int statusID;

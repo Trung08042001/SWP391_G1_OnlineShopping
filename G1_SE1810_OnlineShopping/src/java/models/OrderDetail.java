@@ -6,10 +6,9 @@ package models;
 
 /**
  *
- * @author Nitro
+ * @author khanh cu be
  */
 public class OrderDetail {
-
     private int orderDetailID;
     private int orderID;
     private int productID;
@@ -25,18 +24,6 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderDetailID, int orderID, int productID, int oquantity, double oprice, Order order, Products product, Shipper shipper, int reviewStatus) {
-        this.orderDetailID = orderDetailID;
-        this.orderID = orderID;
-        this.productID = productID;
-        this.oquantity = oquantity;
-        this.oprice = oprice;
-        this.order = order;
-        this.product = product;
-        this.shipper = shipper;
-        this.reviewStatus = reviewStatus;
-    }
-
     public OrderDetail(int orderDetailID, int orderID, int productID, int oquantity, double oprice, int colorId, int sizeId, Order order, Products product, Shipper shipper, int reviewStatus) {
         this.orderDetailID = orderDetailID;
         this.orderID = orderID;
@@ -50,24 +37,6 @@ public class OrderDetail {
         this.shipper = shipper;
         this.reviewStatus = reviewStatus;
     }
-
-    public int getColorId() {
-        return colorId;
-    }
-
-    public void setColorId(int colorId) {
-        this.colorId = colorId;
-    }
-
-    public int getSizeId() {
-        return sizeId;
-    }
-
-    public void setSizeId(int sizeId) {
-        this.sizeId = sizeId;
-    }
-    
-    
 
     public int getOrderDetailID() {
         return orderDetailID;
@@ -109,6 +78,22 @@ public class OrderDetail {
         this.oprice = oprice;
     }
 
+    public int getColorId() {
+        return colorId;
+    }
+
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
+    }
+
+    public int getSizeId() {
+        return sizeId;
+    }
+
+    public void setSizeId(int sizeId) {
+        this.sizeId = sizeId;
+    }
+
     public Order getOrder() {
         return order;
     }
@@ -143,7 +128,9 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "orderDetailID=" + orderDetailID + ", orderID=" + orderID + ", productID=" + productID + ", oquantity=" + oquantity + ", oprice=" + oprice + ", order=" + order + ", product=" + product + ", shipper=" + shipper + ", reviewStatus=" + reviewStatus + '}';
+        return "OrderDetail{" + "orderDetailID=" + orderDetailID + ", orderID=" + orderID + ", productID=" + productID + ", oquantity=" + oquantity + ", oprice=" + oprice + ", colorId=" + colorId + ", sizeId=" + sizeId + ", order=" + order + ", product=" + product + ", shipper=" + shipper + ", reviewStatus=" + reviewStatus + '}';
     }
+    
+    
 
 }

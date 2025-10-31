@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author Nitro
+ * @author khanh cu be
  */
 public class Order {
-
-    private int orderID;
+     private int orderID;
     private Date date;
     private Account account;
     private Double totalMoney;
@@ -175,7 +174,6 @@ public class Order {
     public String toString() {
         return "Order{" + "orderID=" + orderID + ", date=" + date + ", account=" + account + ", totalMoney=" + totalMoney + ", status=" + status + ", shipper=" + shipper + ", confirmedDate=" + confirmedDate + ", pickUpDate=" + pickUpDate + ", deliveryDate=" + deliveryDate + ", shippingCost=" + shippingCost + ", orderdetail=" + orderdetail + ", statusName=" + statusName + ", paymentMethod=" + paymentMethod + ", payment_at=" + payment_at + ", paymentStatus=" + paymentStatus + '}';
     }
-
     
-
+    
 }

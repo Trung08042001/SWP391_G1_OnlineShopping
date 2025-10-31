@@ -8,7 +8,7 @@ import java.sql.Date;
 
 /**
  *
- * @author admin
+ * @author Nitro
  */
 public class Account {
 

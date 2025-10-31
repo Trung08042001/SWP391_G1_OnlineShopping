@@ -5,9 +5,6 @@
 package controller;
 
 import dao.DAOAccount;
-import dao.DAOColor;
-import dao.DAOProduct;
-import dao.DAOSize;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,13 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Account;
-import models.Cart;
-import models.Item;
-import models.Products;
-import models.Size;
 import jakarta.servlet.http.Cookie;
-import java.util.List;
-import models.Color;
+
 import utils.SenMail;
 
 /**
@@ -57,29 +49,6 @@ public class SignupVerify extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOSize ds = new DAOSize();
-        DAOColor dcl = new DAOColor();
-        DAOProduct dp = new DAOProduct();
-        List<Products> list2 = dp.getAllProducts();
-
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie cookie : arr) {
-                if (cookie.getName().equals("cart")) {
-                    txt += cookie.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list2);
-        List<Item> listItem = cart.getItems();
-        int n;
-        if (listItem != null) {
-            n = listItem.size();
-        } else {
-            n = 0;
-        }
-        request.setAttribute("size", n);
         request.getRequestDispatcher("/view/userAccess/signupverify.jsp").forward(request, response);
     }
 

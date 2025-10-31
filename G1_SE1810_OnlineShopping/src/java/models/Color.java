@@ -6,10 +6,9 @@ package models;
 
 /**
  *
- * @author trand
+ * @author khanh cu be
  */
 public class Color {
-
     private int colorId;
     private String colorName;
 
@@ -36,5 +35,4 @@ public class Color {
     public void setColorName(String colorName) {
         this.colorName = colorName;
     }
-
 }

@@ -6,7 +6,7 @@ package models;
 
 /**
  *
- * @author Nitro
+ * @author khanh cu be
  */
 public class Size {
     private int sizeId;
@@ -36,5 +36,4 @@ public class Size {
         this.size = size;
     }
 
-    
 }

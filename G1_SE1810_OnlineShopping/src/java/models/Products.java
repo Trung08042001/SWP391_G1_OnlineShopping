@@ -23,8 +23,6 @@ public class Products {
     private int brandID;
     private int status;
     private String image;
-    private int color;
-    private int size;
 
     public String getImage() {
         return image;
@@ -32,37 +30,6 @@ public class Products {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Products(int productID, String productName, double price, double discountSale, String description, Date create_at, Date update_at, int categoryID, int brandID, int status, String image, int color, int size) {
-        this.productID = productID;
-        this.productName = productName;
-        this.price = price;
-        this.discountSale = discountSale;
-        this.description = description;
-        this.create_at = create_at;
-        this.update_at = update_at;
-        this.categoryID = categoryID;
-        this.brandID = brandID;
-        this.status = status;
-        this.image = image;
-
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public Products() {

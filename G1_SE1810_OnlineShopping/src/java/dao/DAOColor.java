@@ -21,7 +21,6 @@ import models.Size;
  * @author trand
  */
 public class DAOColor {
-
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -217,17 +216,14 @@ public class DAOColor {
         }
         return list;
     }
-
-    public List<Color> getColor(int productId) {
+    
+    
+      public List<Color> getColor() {
         List<Color> list = new ArrayList<>();
-        String sql = "SELECT distinct c.colorID, c.colorName FROM product_detail p \n"
-                + "inner join size s on s.sizeID = p.sizeID \n"
-                + "inner join color c on c.colorID = p.colorID \n"
-                + "where p.productID = ?";
+        String sql = "SELECT * FROM  color ";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, productId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Color h = new Color();
@@ -250,5 +246,6 @@ public class DAOColor {
         System.out.println(s);
 
     }
-
+    
+    
 }

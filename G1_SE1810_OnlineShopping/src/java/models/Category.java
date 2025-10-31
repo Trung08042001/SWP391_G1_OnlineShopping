@@ -8,11 +8,10 @@ import java.sql.Date;
 
 /**
  *
- * @author Nitro
+ * @author khanh cu be
  */
 public class Category {
-
-    private int categoryID;
+     private int categoryID;
     private String cname;
     private Date create_at;
     private Date update_at;
@@ -93,7 +92,4 @@ public class Category {
     public String toString() {
         return "Category{" + "categoryID=" + categoryID + ", cname=" + cname + ", create_at=" + create_at + ", update_at=" + update_at + ", image=" + image + ", imageSize=" + imageSize + ", brandID=" + brandID + '}';
     }
-
-    
-
 }

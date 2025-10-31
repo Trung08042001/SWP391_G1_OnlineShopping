@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author Nitro
  */
 public class DAOAccount {
 
@@ -409,43 +409,6 @@ public class DAOAccount {
             e.printStackTrace();
         } finally {
             // Đảm bảo rằng tất cả các tài nguyên bị giải phóng
-            closeResources(conn, ps, rs);
-        }
-    }
-
-    public String getLatestAccountID() {
-        String sql = "SELECT id FROM onlineshopping.account ORDER BY id DESC LIMIT 1";
-        String latestAccountID = null;
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                latestAccountID = rs.getString("id");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeResources(conn, ps, rs);
-        }
-        return latestAccountID;
-    }
-
-    public void AddShipper(String vehicle, String plateNumber, String identity, String status,String id) {
-        String sql = "INSERT INTO onlineshopping.shipper (accountID, vehicleType, vehiclePlateNumber, cccd, isAvailable)\n"
-                + "VALUES (?,?,?,?,?)";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, id);
-            ps.setString(2, vehicle);
-            ps.setString(3, plateNumber);
-            ps.setString(4, identity);
-            ps.setString(5, status);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             closeResources(conn, ps, rs);
         }
     }
